@@ -16,11 +16,10 @@ RED		=	\033[0;31m
 YELLOW	=	\033[0;33m
 END		=	\033[0m
 
-HEADER	=	libft.h
 NAME 	= 	libft.a
 
 #Directories, compiler and flags
-INC 	= 	inc/
+INC 	= 	library/
 SRC_DIR = 	src/
 OBJ_DIR = 	obj/
 CC 		= 	gcc
@@ -28,7 +27,7 @@ CFLAGS	=	-Wall -Wextra -Werror -I
 RM 		=	rm -rf
 AR 		= 	ar rcs
 
-LIBFT	= 	$(SRC_DIR)ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c\
+LIBFT_DIR	= 	$(SRC_DIR)ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c\
 	  		$(SRC_DIR)ft_isprint.c ft_strlen.c ft_memset.c ft_bzero.c\
 	 		$(SRC_DIR)ft_memcpy.c ft_memmove.c ft_strlcpy.c ft_strlcat.c\
 			$(SRC_DIR)ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c\
@@ -41,19 +40,15 @@ LIBFT	= 	$(SRC_DIR)ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c\
 			$(SRC_DIR)ft_lstadd_front.c ft_lstsize.c ft_lstlast.c\
 			$(SRC_DIR)ft_lstadd_back.c ft_lstiter.c ft_lstmap.c\
 
-PRINTF 	= 	$(SRC_DIR)ft_printf_base.c ft_printf_hexp.c\
+PRINTF_DIR 	= 	$(SRC_DIR)ft_printf_base.c ft_printf_hexp.c\
 			$(SRC_DIR)ft_printf_type.c ft_printf.c\
 
-GNL 	= 	$(SRC_DIR)get_next_line_utils.c get_next_line.c\
+GNL_DIR 	= 	$(SRC_DIR)get_next_line_utils.c get_next_line.c\
 
 # Concatenate all source files
-SRC		= 	$(LIBFT) $(PRINTF) $(GNL)
+SRC		= 	$(LIBFT_DIR) $(PRINTF_DIR) $(GNL_DIR)
 
-#Por exemplo, se $(SRC) contiver src/ft_isalpha.c src/ft_strlen.c, a linha OBJ = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC)) resultará em obj/ft_isalpha.o obj/ft_strlen.o.
 OBJ 	= 	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
-
-OBJ		= 	$(SRC:.c=.o)
-OBJ_B	= 	$(BONUS:.c=.o)
 
 all:		$(NAME)
 
@@ -62,7 +57,10 @@ $(NAME): 		$(OBJ)
 				@$(AR) $(NAME) $(OBJ)
 				@echo "$(GREEN)Libft succesfully compiled!$(END)"
 
-#VER A LINHA 89 DO DELA
+#mkdir para garantir que um determinado diretório exista antes de executar outras ações
+$(OBJ_DIR)%.o:	$(SRC_DIR)%.c
+				@mkdir -p $(@D)
+				@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 						
 clean: 		
 				@rm -rf $(OBJ)

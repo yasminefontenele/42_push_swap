@@ -1,0 +1,70 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yfontene <yfontene@student.42porto.com>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/11/16 17:21:14 by yfontene          #+#    #+#              #
+#    Updated: 2023/11/16 18:24:19 by yfontene         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+GREEN				=	\033[0;32m
+RED					=	\033[0;31m
+YELLOW				=	\033[0;33m
+END					=	\033[0m
+
+NAME 				= 	push_swap
+
+LIBFT				=	./libft/libft.a
+INC					=	inc/
+SRC_DIR				=	srcs/
+OBJ_DIR				=	obj/
+
+CC					=	gcc
+CFLAGS				=	-Wall -Werror -Wextra -I$(INC)
+RM					=	rm -f
+
+COMMANDS_DIR		=	$(SRC_DIR)commands/push.c \
+						$(SRC_DIR)commands/rev_rotate.c \
+						$(SRC_DIR)commands/rotate.c \
+						$(SRC_DIR)commands/sort_stacks.c \
+						$(SRC_DIR)commands/sort_three.c \
+						$(SRC_DIR)commands/swap.c
+
+PUSH_SWAP_DIR		=	$(SRC_DIR)push_swap/handle_errors.c \
+						$(SRC_DIR)push_swap/init_a_to_b.c \
+						$(SRC_DIR)push_swap/init_b_to_a.c \
+						$(SRC_DIR)push_swap/push_swap.c \
+						$(SRC_DIR)push_swap/split.c \
+						$(SRC_DIR)push_swap/stack_init.c \
+						$(SRC_DIR)push_swap/stack_utils.c
+
+SRCS				=	$(COMMANDS_DIR) $(PUSH_SWAP_DIR)
+
+OBJ 				=	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
+
+$(LIBFT):
+					@make -C .libft
+
+all:				$(NAME)
+
+$(NAME):			$(OBJ) $(LIBFT)
+					@$(CC) $(CFLAGS) $(INC) $(OBJ) $(LIBFT) -o $(NAME)
+
+$(OBJ_DIR)%.o:		$(SRC_DIR)%.c
+					@mkdir -p $(@D)
+					@$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+clean:				
+    				@$(RM) -r $(OBJ_DIR)
+					@make clean -C ./libft
+
+fclean:				clean
+					@$(RM) $(NAME)
+					@$(RM) $(LIBFT)
+
+re:					fclean all
+
+.PHONY:				all clean fclean re
