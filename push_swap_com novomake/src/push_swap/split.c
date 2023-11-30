@@ -70,19 +70,19 @@ char **split( char *s, char c)
 		exit(1);
 	result_array = malloc((size_t)(words_count + 2) * sizeof(char *));
 	if(!result_array)
-		return(NULL);
+		return (NULL);
 	while(words_count-- >= 0)
 	{
 		if(i == 0)
 		{
 			result_array[i] = malloc(sizeof(char));
 			if(!result_array[i])
-				return(NULL);
+				return (NULL);
 			result_array[i++][0] = '\0';
 			continue;
 		}
 		result_array[i++] = get_next_word(s, c);
 	}
 	result_array[i] = NULL;
-	return(result_array);
+	return (result_array);
 }

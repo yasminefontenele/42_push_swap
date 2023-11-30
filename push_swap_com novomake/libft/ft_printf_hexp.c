@@ -6,12 +6,11 @@
 /*   By: yfontene <yfontene@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 18:34:57 by yfontene          #+#    #+#             */
-/*   Updated: 2023/11/29 19:18:36 by yfontene         ###   ########.fr       */
+/*   Updated: 2023/11/30 17:56:43 by yfontene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdint.h>
 
 int	ft_hex_base(unsigned long nb, int fmt)
 {
@@ -45,6 +44,6 @@ int	ft_put_p(void *ptr)
 		adress += write(1, "(nil)", 5);
 		return (adress);
 	}
-	adress += write(1, "0x", 2) + ft_hex_base((uintptr_t)ptr, 'x');
+	adress += write(1, "0x", 2) + ft_hex_base((unsigned long)ptr, 'x');
 	return (adress);
 }

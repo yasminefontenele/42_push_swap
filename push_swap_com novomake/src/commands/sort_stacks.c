@@ -59,7 +59,7 @@ static void min_on_top(t_stack_node **a)
 	}
 }
 
-void sort_stacks(t_stack_node**a, t_stack_node **b)
+void sort_stacks(t_stack_node **a, t_stack_node **b)
 {
 	int len_a;
 

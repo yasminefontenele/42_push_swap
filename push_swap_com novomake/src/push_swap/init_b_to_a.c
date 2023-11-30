@@ -14,9 +14,9 @@
 
 static void set_target_b(t_stack_node *a, t_stack_node *b)
 {
-	t_stack_node *current_a;
-	t_stack_node *target_node;
-	long best_match_index;
+	t_stack_node	*current_a;
+	t_stack_node	*target_node;
+	long			best_match_index;
 
 	while(b)
 	{

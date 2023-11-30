@@ -10,6 +10,11 @@
 #                                                                              #
 # **************************************************************************** #
 
+GREEN				=	\033[0;32m
+RED					=	\033[0;31m
+YELLOW				=	\033[0;33m
+END					=	\033[0m
+
 NAME = push_swap
 HEADER = inc/push_swap.h
 LIBFT = libft/libft.a
@@ -47,21 +52,23 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ) $(HEADER) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	@echo "$(GREEN)Push_swap succesfully compiled!$(END)"
 
 $(LIBFT): force
-	$(MAKE) -C libft
+	@$(MAKE) -C libft
 
 force: 
 	@true
 
 clean:
-	$(RM) $(OBJ)
-	$(MAKE) -C libft clean
+	@$(RM) $(OBJ)
+	@$(MAKE) -C libft clean
 
 fclean: clean
-	$(RM) $(NAME)
-	$(MAKE) -C libft fclean
+	@$(RM) $(NAME)
+	@$(MAKE) -C libft fclean
+	@echo "$(RED)Push_swap deleted!$(END)"
 
 re: fclean all
 
